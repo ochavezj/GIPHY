@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+	<meta charset="UTF-8">
+	<title>GIFtastic</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+<div class="row">
+<div class =class="col-sm-12">
+	<div id="buttons-row">
+		<button class="btn btn-warning" data-character="Super-Mario">Super Mario Bros</button>
+		<button class="btn btn-warning" data-character="Sonic-the-Hedgehog">Sonic</button>
+		<button class="btn btn-warning" data-character="Zelda">Zelda</button>
+		<button class="btn btn-warning" data-character="Final-Fantasy-Cloud">Cloud</button>
+		<button class="btn btn-warning" data-character="Metal-Gear-Solid">Snake</button>
+		<button class="btn btn-warning" data-character="Devil-May-Cry">Dante</button>
+		<button class="btn btn-warning" data-character="Halo">Chief</button>
+		<button class="btn btn-warning" data-character="Street-Fighter-RYU">Ryu</button>
+		<button class="btn btn-warning" data-character="Bayonetta">Bayonetta</button>
+		<button class="btn btn-warning" data-character="Pacman">Pacman</button>
+		<button class="btn btn-warning" data-character="Motal-Kombat-Subzero">Sub Zero</button>
+		<button class="btn btn-warning" data-character="Galaga">Galaga</button>
+		<button class="btn btn-warning" data-character="Mega-Man">Mega-Man</button>
+		<button class="btn btn-warning" data-character="Tetris">Tetris</button>
+		<button class="btn btn-warning" data-character="Call-of-Duty">Call of Duty</button>
+		<button class="btn btn-warning" data-character="Resident-Evil-Game">Resident Evil</button>
+		<button class="btn btn-warning" data-character="Assassins-Creed-Ezio">Asassin's Creed</button>
+		<button class="btn btn-warning" data-character="Metroid">Metroid</button>
+		<button class="btn btn-warning" data-character="Star-Fox">Star Fox</button>
+		<button class="btn btn-warning" data-character="Dig-Doug">Dig Doug</button>
+		<button class="btn btn-warning" data-character="Frogger">Frogger</button>
+		<button class="btn btn-warning" data-character="Donkey_Kong">Donkey Kong</button>
+		<button class="btn btn-warning" data-character="Tekken">Tekken</button>
+		<button class="btn btn-warning" data-character="Mass Effect">Mass Effect</button>
+	</div>
+	</div>
+	</div>
+
+<form>
+  	<div class="form-group">
+    	<label for="GIFtastic">Search for a GIPHY</label><br>
+    		<input type="giphy" class="col-12
+    		 col-form-control" id="giphySearch" aria-describedby="GIFS" placeholder="Search">
+  		</label>
+ 	</div>
+	<button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<div class="row">
+	<div class="col-md-1" id="giphyDisplay"></div>
+</div>	
+
+</div>
+
+<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script type="text/javascript">
+
+	$("button").on("click", function() {
+	      var character = $(this).attr("data-character");
+	      var queryURL = "http://api.giphy.com/v1/gifs/search?q=" +
+	        character + "&api_key=dc6zaTOxFJmzC";
+
+	       $.ajax({
+	       	url: queryURL,
+	       	method: "GET"
+	       })
+	       .done(function(response) {
+	       	var results = response.data;
+
+	       	for (var i = 0; i < results.length; i++) {
+	       		var giphyDiv = $("<div class= 'item'>");
+
+	       		var rating = results[i].rating;
+
+	       		var p = $("<p>").text("Rating: " + rating);
+
+	       		var giphyImage = $("<img>");
+	       		giphyImage.attr("src", results[i].images.fixed_height.url);
+
+	       		giphyDiv.prepend(p);
+	       		giphyDiv.prepend(giphyImage);
+
+	       		$("#giphyDisplay").prepend(giphyDiv);
+	       	}
+
+	       });
+	   });
+
+	function createButtons() {
+		$("#buttons-row").empty();
+	}
+	
+
+
+
+
+</script>
+
+</body>
+</html>
